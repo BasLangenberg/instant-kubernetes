@@ -16,15 +16,46 @@ trizen -S doctl-bin terraform ansible
 
 ## Step 1: Bring up infrastructure using terraform
 
-Some intro story
+In order to setup your infrastructure, you need to authenticate with your DigitalOcean account using the API. For this, we need an API key. We will also setup ssh keys which Ansible will use to connect to the Droplets to provision Kubernetes on them.
 
 ### DigitalOcean Key
 
-Explain you need to setup a secret file which is included in your shell or import it automatically
+In the DigitalOcean interface, click API. Create a read/write key to access the API.
+
+Personally, I list a bunch of variables in a ~/.secrets file which I import in my shell if it exists. (For portability)
+
+```
+DO_ACCESS_TOKEN=IWONTTELLYOU
+DO_SSH_FINGERPRINT="I ALSO WILL NOT TELL YOU"
+
+export DO_ACCESS_TOKEN
+export DO_SSH_FINGERPRINT
+```
+
+In my .zshrc, I have the following lines:
+
+```
+# Add secrets if present
+if [[ -f ~/.secrets ]]; then
+  source ~/.secrets
+fi
+```
 
 ### SSH Key
 
-Explain how to setup ssh keys with doctl and ssh-keygen and how to add the fingerprint to your secret file
+Generate a ssh key. On a Linux system this is easy.
+
+```
+ssh-keygen -t rsa
+```
+
+After this, put it into your DO account.
+
+```
+doctl compute ssh-key import dok8s --public-key-file ~/.ssh/do_k8s.pub
+```
+
+The output of the command will list the fingerprint of the key. Put it in your ~/.secrets file. Do not forget to source it.
 
 ### Provision test server
 
@@ -40,10 +71,13 @@ Repeat some earlier instructions
 
 ## Step 2: Setup Kubernetes
 
-## Step 2: Setup Client
+## Step 3: Setup Client
 
 ## Step 4: Setup Kubernetes Dashboard
 
 ## Step 5: Do some test deployment
 
 ## Step ?: Destroy all that just was
+
+# Resources
+(Doctl Cheat Sheet)[https://www.digitalocean.com/community/tutorials/how-to-use-doctl-the-official-digitalocean-command-line-client]
