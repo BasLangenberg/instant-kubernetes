@@ -10,5 +10,22 @@ with open(state_file) as objects:
 
 state = state['modules'][0]['resources']
 
+nodes = {}
+
 for droplet in state:
-    print(state[droplet]['primary']['attributes']['name'] + ' ' + state[droplet]['primary']['attributes']['ipv4_address'])
+    nodes[state[droplet]['primary']['attributes']['name']] = state[droplet]['primary']['attributes']['ipv4_address']
+
+print('[k8s-primary-master]')
+for node in nodes:
+    if 'primary' in node:
+        print(nodes[node])
+
+print('[k8s-masters]')
+for node in nodes:
+    if 'master' in node:
+        print(nodes[node])
+
+print('[k8s-workers]')
+for node in nodes:
+    if 'worker' in node:
+        print(nodes[node])
