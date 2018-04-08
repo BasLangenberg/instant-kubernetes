@@ -7,6 +7,7 @@ I'm doing this on Arch Linux, but the tools should be well available among Linux
  - Doctl
  - Ansible
  - Terraform
+ - Python 3
 
 All installed using my systems package manager.
 
@@ -57,17 +58,21 @@ doctl compute ssh-key import dok8s --public-key-file ~/.ssh/do_k8s.pub
 
 The output of the command will list the fingerprint of the key. Put it in your ~/.secrets file. Do not forget to source it.
 
-### Provision test server
+### Provision servers
 
-Explan how to test what was just build and provision a sample server to test all
+Pretty simple with terraform installed!
 
-### Destroy test server
+```
+terraform apply -var "do_token=${DO_ACCESS_TOKEN}" -var "ssh_fingerprint=${DO_SSH_FINGERPRINT}"
+```
 
-Destroy the test server
+### Destroy servers
 
-### provision the 'real' servers
+```
+terraform destroy -var "do_token=${DO_ACCESS_TOKEN}" -var "ssh_fingerprint=${DO_SSH_FINGERPRINT}"
+```
 
-Repeat some earlier instructions
+Do this to preserve costs or when you want to reprovision.
 
 ## Step 2: Setup Kubernetes
 
