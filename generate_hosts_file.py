@@ -2,7 +2,7 @@ import os
 import json
 from pprint import pprint
 
-state_file = os.getcwd() + '/terraform.tfstate.backup'
+state_file = os.getcwd() + '/terraform.tfstate'
 state = dict()
 
 with open(state_file) as objects:
