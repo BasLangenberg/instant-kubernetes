@@ -38,6 +38,10 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   N = 6
   (1..N).each do |machine_id|
     config.vm.define "machine#{machine_id}" do |machine|
+      machine.vm.provider :virtualbox do |v|
+        v.customize ["modifyvm", :id, "--natdnshostresolver1", "on"]
+        v.customize ["modifyvm", :id, "--memory", 2048]
+      end
       machine.vm.box = "centos/7"
       machine.vm.hostname = "machine#{machine_id}"
       machine.vm.network "private_network", ip: "192.168.56.#{102+machine_id-1}"

@@ -18,14 +18,14 @@ for droplet in state:
 print('[k8s-primary-master]')
 for node in nodes:
     if 'primary' in node:
-        print(nodes[node])
+        print(nodes[node] + ' ansible_user=root')
 
 print('[k8s-masters]')
 for node in nodes:
     if 'master' in node:
-        print(nodes[node])
+        print(nodes[node] + ' ansible_user=root')
 
 print('[k8s-workers]')
 for node in nodes:
     if 'worker' in node:
-        print(nodes[node])
+        print(nodes[node] + ' ansible_user=root')

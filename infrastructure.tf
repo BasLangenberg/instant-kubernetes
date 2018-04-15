@@ -10,7 +10,7 @@ provider "digitalocean" {
 
 # Create Kubernetes first master
 resource "digitalocean_droplet" "k8s-primary-master" {
-  image = "ubuntu-16-04-x64"
+  image = "centos-7-x64"
   name = "k8s-primary-master"
   region = "ams3"
   size = "1gb"
@@ -22,7 +22,7 @@ resource "digitalocean_droplet" "k8s-primary-master" {
 # Create Kubernetes additional masters
 resource "digitalocean_droplet" "k8s-master" {
   count = 2
-  image = "ubuntu-16-04-x64"
+  image = "centos-7-x64"
   name = "k8s-master-${count.index}"
   region = "ams3"
   size = "1gb"
@@ -34,7 +34,7 @@ resource "digitalocean_droplet" "k8s-master" {
 # Create Kubernetes computer nodes
 resource "digitalocean_droplet" "k8s-workers" {
   count = 3
-  image = "ubuntu-16-04-x64"
+  image = "centos-7-x64"
   name = "k8s-worker-${count.index}"
   region = "ams3"
   size = "1gb"
