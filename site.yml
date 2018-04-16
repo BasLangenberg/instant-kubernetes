@@ -7,7 +7,7 @@
     - geerlingguy.docker
     - kubernetes
 
-- hosts: k8s-primairy-master
+- hosts: k8s-primary-master
   become: true
   vars:
     k8s_action: init
