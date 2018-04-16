@@ -22,7 +22,7 @@ for node in nodes:
 
 print('[k8s-masters]')
 for node in nodes:
-    if 'master' in node:
+    if 'master' in node and not 'primary' in node:
         print(nodes[node] + ' ansible_user=root')
 
 print('[k8s-workers]')
