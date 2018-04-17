@@ -19,26 +19,26 @@ resource "digitalocean_droplet" "k8s-primary-master" {
   ]
 }
 
-# Create Kubernetes additional masters
-resource "digitalocean_droplet" "k8s-master" {
-  count = 2
-  image = "centos-7-x64"
-  name = "k8s-master-${count.index}"
-  region = "ams3"
-  size = "1gb"
-  ssh_keys = [
-    "${var.ssh_fingerprint}"
-  ]
-}
-
-# Create Kubernetes computer nodes
-resource "digitalocean_droplet" "k8s-workers" {
-  count = 3
-  image = "centos-7-x64"
-  name = "k8s-worker-${count.index}"
-  region = "ams3"
-  size = "1gb"
-  ssh_keys = [
-    "${var.ssh_fingerprint}"
-  ]
-}
+## Create Kubernetes additional masters
+#resource "digitalocean_droplet" "k8s-master" {
+#  count = 2
+#  image = "centos-7-x64"
+#  name = "k8s-master-${count.index}"
+#  region = "ams3"
+#  size = "1gb"
+#  ssh_keys = [
+#    "${var.ssh_fingerprint}"
+#  ]
+#}
+#
+## Create Kubernetes computer nodes
+#resource "digitalocean_droplet" "k8s-workers" {
+#  count = 3
+#  image = "centos-7-x64"
+#  name = "k8s-worker-${count.index}"
+#  region = "ams3"
+#  size = "1gb"
+#  ssh_keys = [
+#    "${var.ssh_fingerprint}"
+#  ]
+#}
