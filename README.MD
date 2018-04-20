@@ -8,6 +8,13 @@ For fun, and to get some experience with Kubernetes. And to play with Terraform.
 
 Main reason is that I want to be able to quickly provision a K8S cluster using a toolset I am comfortable with on a platform I like.
 
+## Out of scope
+
+Things currently out of scope, but might be added in the future:
+
+ - HA of masters
+ - Other stuff I did not think of
+
 ## Step 0: Software used
  - Doctl
  - Ansible
@@ -110,11 +117,17 @@ After 15 minutes or so Kubernetes should be setup. During the provisioning of th
 
 ## Step 3: Setup Client
 
+This is done by the Ansible code! Your local machine will be able to use kubectl against the cluster immediately after the initial master is provisioned.
+
 ## Step 4: Setup Kubernetes Dashboard
 
 ## Step 5: Do some test deployment
 
-## Step ?: Destroy all that just was
+## Step 6: Destroy all that just was
+```
+terraform destroy -var "do_token=${DO_ACCESS_TOKEN}" -var "ssh_fingerprint=${DO_SSH_FINGERPRINT}"
+```
 
 # Resources
-(Doctl Cheat Sheet)[https://www.digitalocean.com/community/tutorials/how-to-use-doctl-the-official-digitalocean-command-line-client]
+[Doctl Cheat Sheet](https://www.digitalocean.com/community/tutorials/how-to-use-doctl-the-official-digitalocean-command-line-client)
+[Kubernetes HA Guide](https://kubernetes.io/docs/setup/independent/high-availability/)

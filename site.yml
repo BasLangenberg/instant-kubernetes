@@ -16,14 +16,14 @@
   roles:
     - kubernetes
 
-- hosts: k8s-masters
-  become: true
-  vars:
-    k8s_action: join
-    role: master
-    token: beec8f.d58d453fb6470881
-  roles:
-    - kubernetes
+#- hosts: k8s-masters
+#  become: true
+#  vars:
+#    k8s_action: join
+#    role: master
+#    token: beec8f.d58d453fb6470881
+#  roles:
+#    - kubernetes
 
 - hosts: k8s-workers
   become: true

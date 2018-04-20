@@ -45,10 +45,10 @@
   include_tasks: init.yml
   when: k8s_action == 'init'
 
-- name: join additional master to cluster
-  include_tasks: join_master.yml
-  when: k8s_action == 'join' && role == 'master'
-
 - name: join workers to cluster
   include_tasks: join_worker.yml
-  when: k8s_action == 'join' && role == 'worker'
+  when: k8s_action == 'join'
+ 
+#- name: join additional master to cluster
+#  include_tasks: join_master.yml
+#  when: k8s_action == 'join' && role == 'master'
