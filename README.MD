@@ -21,7 +21,7 @@ Things currently out of scope, but might be added in the future:
  - Terraform
  - Python 3
 
-All installed using my systems package manager.
+All installed using my system package manager.
 
 ```
 trizen -S doctl-bin terraform ansible
@@ -120,8 +120,22 @@ After 15 minutes or so Kubernetes should be setup. During the provisioning of th
 This is done by the Ansible code! Your local machine will be able to use kubectl against the cluster immediately after the initial master is provisioned.
 
 ## Step 4: Setup Kubernetes Dashboard
+First, deploy the Kubernetes dashboard.
+
+```
+kubectl apply -f https://raw.githubusercontent.com/kubernetes/dashboard/master/src/deploy/recommended/kubernetes-dashboard.yaml
+```
+
+After which you can start a local proxy
+
+```
+kubectl proxy
+```
+
+Make sure you [create a sample user](https://github.com/kubernetes/dashboard/wiki/Creating-sample-user) with a token to use with the dashboard.
 
 ## Step 5: Do some test deployment
+TBD
 
 ## Step 6: Destroy all that just was
 ```
