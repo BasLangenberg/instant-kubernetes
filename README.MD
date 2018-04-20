@@ -13,6 +13,8 @@ Main reason is that I want to be able to quickly provision a K8S cluster using a
 Things currently out of scope, but might be added in the future:
 
  - HA of masters
+ - Load balancing
+ - Ingress and egress
  - Other stuff I did not think of
 
 ## Step 0: Software used
@@ -135,7 +137,9 @@ kubectl proxy
 Make sure you [create a sample user](https://github.com/kubernetes/dashboard/wiki/Creating-sample-user) with a token to use with the dashboard.
 
 ## Step 5: Do some test deployment
-TBD
+```
+kubectl apply -f nginx.yml
+```
 
 ## Step 6: Destroy all that just was
 ```
