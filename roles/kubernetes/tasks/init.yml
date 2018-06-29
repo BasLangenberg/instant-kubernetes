@@ -1,7 +1,7 @@
 # initialize a new kubernetes cluster
 
 - name: Reset k8s cluster
-  shell: kubeadm reset
+  shell: kubeadm reset -f
 
 - name: Init Kubernetes cluster
   shell: |

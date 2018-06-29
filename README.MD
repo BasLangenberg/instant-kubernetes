@@ -138,8 +138,12 @@ Make sure you [create a sample user](https://github.com/kubernetes/dashboard/wik
 
 ## Step 5: Do some test deployment
 ```
-kubectl apply -f nginx.yml
+kubectl run nginx --image=nginx --port 80
+kubectl expose deploy nginx --port 80 --target-port 80 --type NodePort
+kubectl get service
 ```
+
+Use one of the worker nodes with port higher than 80 to try and see if nginx is running.
 
 ## Step 6: Destroy all that just was
 ```

@@ -35,7 +35,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 #    v.customize ["modifyvm", :id, "--memory", 512]
 #  end
 
-  N = 6
+  N = 4
   (1..N).each do |machine_id|
     config.vm.define "machine#{machine_id}" do |machine|
       machine.vm.provider :virtualbox do |v|
@@ -56,17 +56,15 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
             user: "vagrant",
           }
           ansible.groups = {
-            "k8s-primairy-master" => [
+            "k8s-primary-master" => [
               "machine1"
             ],
             "k8s-masters" => [
-              "machine2",
-              "machine3",
             ],
             "k8s-workers" => [
+              "machine2",
+              "machine3",
               "machine4",
-              "machine5",
-              "machine6",
             ]
           }
           ansible.playbook = "site.yml"
