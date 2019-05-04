@@ -13,7 +13,7 @@ resource "digitalocean_droplet" "k8s-primary-master" {
   image = "centos-7-x64"
   name = "k8s-primary-master"
   region = "ams3"
-  size = "1gb"
+  size = "4gb"
   ssh_keys = [
     "${var.ssh_fingerprint}"
   ]
@@ -37,7 +37,7 @@ resource "digitalocean_droplet" "k8s-workers" {
   image = "centos-7-x64"
   name = "k8s-worker-${count.index}"
   region = "ams3"
-  size = "1gb"
+  size = "4gb"
   ssh_keys = [
     "${var.ssh_fingerprint}"
   ]

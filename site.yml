@@ -1,3 +1,12 @@
+- hosts: localhost
+  become: true
+  tasks:
+    - name: install kubectl on localhost
+      get_url:
+        url: https://storage.googleapis.com/kubernetes-release/release/v1.14.0/bin/linux/amd64/kubectl
+        dest: /usr/bin/local/kubectl
+        mode: 0755
+
 - hosts: all
   become: true
   vars:

@@ -1,12 +1,18 @@
 # initialize a new kubernetes cluster
+- name: Check that the k8s init file exists
+  stat:
+    path: /etc/k8s-init.txt
+  register: stat_result
 
 - name: Reset k8s cluster
   shell: kubeadm reset -f
+  when: stat_result.stat.exists == False
 
 - name: Init Kubernetes cluster
   shell: |
     kubeadm init --pod-network-cidr 10.244.0.0/16 \
                  --token {{ token }}
+  when: stat_result.stat.exists == False
 
 - name: Create Kubernetes config directory
   become: false
@@ -26,13 +32,19 @@
     remote_src: True
 
 - name: Deploy Flannel
-  shell: "kubectl apply -f https://raw.githubusercontent.com/coreos/flannel/v0.9.1/Documentation/kube-flannel.yml"
+  shell: "kubectl -n kube-system apply -f https://raw.githubusercontent.com/coreos/flannel/bc79dd1505b0c8681ece4de4c0d86c5cd2643275/Documentation/kube-flannel.yml"
+  when: stat_result.stat.exists == False
 
 - name: copy kube config to local machine
   fetch:
     src: "/etc/kubernetes/admin.conf"
     dest: "~/.kube/config"
     flat: yes
+
+- name: Create the file, if it doesnt exist already
+  file:
+    path: /etc/k8s-init.txt
+    state: touch
 
 - name: verify if master is ok before continuing!
   pause:

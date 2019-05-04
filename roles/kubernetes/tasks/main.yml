@@ -34,12 +34,18 @@
 - name: copy kubeadm service file for kubelet
   copy:
     src: 10-kubeadm.conf
-    dest: /etc/systemd/system/kubelet.service.d/10-kubeadm.conf
+    dest: /etc/systemd/system/10-kubeadm.conf
 - name: start kubelet
   systemd:
     name: kubelet
     state: started
     enabled: True
+- name: Fix docker daemon
+  copy:
+    src: daemon.json
+    dest: /etc/docker/daemon.json
+  notify:
+    - reload docker
     
 - name: create kubernetes cluster
   include_tasks: init.yml

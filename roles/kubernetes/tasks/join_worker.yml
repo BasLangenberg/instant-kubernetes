@@ -1,11 +1,23 @@
 
 # initialize a new kubernetes cluster
 
+- name: Check that the k8s init file exists
+  stat:
+    path: /etc/k8s-init.txt
+  register: stat_result
+
 - name: Reset k8s cluster
   shell: kubeadm reset -f
+  when: stat_result.stat.exists == False
 
 - name: Join Kubernetes cluster
   shell: |
     kubeadm join --token {{ token }} \
                  --discovery-token-unsafe-skip-ca-verification \
                  {{ groups['k8s-primary-master'][0] }}:6443 
+  when: stat_result.stat.exists == False
+
+- name: Create the file, if it doesnt exist already
+  file:
+    path: /etc/k8s-init.txt
+    state: touch

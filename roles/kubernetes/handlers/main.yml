@@ -2,4 +2,6 @@
 # handlers file for common
 - name: reload sysctl
   shell: sysctl --system
+- name: reload docker
+  shell: systemctl restart docker.service
 
